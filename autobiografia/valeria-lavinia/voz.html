@@ -825,7 +825,7 @@
       </div>
       <div class="percent-label">
         <strong>Outro</strong>
-        <input type="text" placeholder="descreva aqui…"
+        <input type="text" id="descricao_outro" placeholder="descreva aqui…"
         style="background: transparent; border: none; border-bottom: 0px solid var(--border-input);
         font-family: 'DM Sans', sans-serif; font-size: 11px; font-style: italic;
         color: var(--text-primary); outline: none; padding: 2px 0; margin-top: 4px; width: 100%;">
@@ -943,7 +943,7 @@
 <script>
   // ─── CONFIG ───────────────────────────────────────────────
   const AUTHOR_NAME = "Valéria Lavínia";
-  const APPS_SCRIPT_URL = "YOUR_APPS_SCRIPT_WEB_APP_URL_HERE";
+  const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx5JDUjPjJb9QvbaUu4ZcSwh4MvvZg6b4snD49KVWxTykNM7Cb5B4KngYu7bbsk8d8l/exec";
   // ──────────────────────────────────────────────────────────
 
   // Set author name throughout
@@ -1040,6 +1040,7 @@
       proposito_catarse: propInputs[4].value,
       proposito_legado: propInputs[5].value,
       proposito_outro: propInputs[6].value,
+      proposito_outro_descricao: document.getElementById('descricao_outro').value,
       proposito_nao_sobre: document.getElementById('prop_not').value,
       legado_essencia: document.getElementById('legacy_strip').value,
       legado_licoes: document.getElementById('legacy_lessons').value,
