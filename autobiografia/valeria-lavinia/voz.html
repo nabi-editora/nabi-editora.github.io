@@ -935,9 +935,17 @@
 
 <!-- SUCCESS -->
 <div class="success-screen" id="successScreen">
-  <div class="cover-subtitle" style="margin-bottom: 16px;">Voz registrada</div>
+  <div class="cover-subtitle" style="margin-bottom: 16px;">
+    Voz registrada
+  </div>
   <div class="success-name" id="successName">Authorname Surname</div>
-  <div class="success-text">Obrigado. Sua voz (seu poder) dará vida ao seu livro.</div>
+  <div class="success-text">
+    Obrigado. Sua voz (seu poder)  
+    <a id="successLink" href="#" target="_blank" 
+       style="color: var(--accent); display:none;">
+      dará vida ao seu livro.
+    </a>
+  </div>
 </div>
 
 <script>
@@ -1050,20 +1058,22 @@
       identidade_palavras: document.getElementById('identity_words').value,
     };
 
-    if (APPS_SCRIPT_URL === "YOUR_APPS_SCRIPT_WEB_APP_URL_HERE") {
-      console.log("Form data:", data);
-      document.getElementById('successScreen').classList.add('visible');
-      return;
-    }
-
     try {
-      await fetch(APPS_SCRIPT_URL, {
+      const response = await fetch(APPS_SCRIPT_URL, {
         method: 'POST',
-        mode: 'no-cors',
+        mode: 'cors',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
       });
+    
+      const result = await response.json();
+    
+      if (result.docUrl) {
+        document.getElementById('successLink').href = result.docUrl;
+        document.getElementById('successLink').style.display = 'inline';
+      }
       document.getElementById('successScreen').classList.add('visible');
+    
     } catch (e) {
       alert('Erro ao enviar. Por favor, tente novamente.');
     }
