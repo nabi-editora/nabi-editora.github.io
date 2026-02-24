@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Autobiografia — Questionário</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F2EFE9;
+    --bg-input: #EDE8E0;
+    --text-primary: #1A1A1A;
+    --text-secondary: #5A5248;
+    --text-placeholder: #9C8E7E;
+    --text-light: #B0A898;
+    --accent: #C17A5A;
+    --accent-light: #E8D5C8;
+    --border: #D8D0C4;
+    --border-input: #C8BFB4;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text-primary);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    padding: 14px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .nav-author {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 15px;
+    color: var(--text-secondary);
+    letter-spacing: 0.02em;
+  }
+
+  .nav-steps {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    font-size: 11px;
+    color: var(--text-light);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .nav-steps span { opacity: 0.4; }
+  .nav-steps a {
+    color: var(--text-light);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-steps a:hover { color: var(--accent); }
+  .nav-steps a.active { color: var(--text-secondary); opacity: 1; }
+
+  /* COVER */
+  .cover {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 120px 10vw 80px;
+  }
+
+  .cover-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: clamp(48px, 7vw, 88px);
+    font-weight: 300;
+    color: var(--text-primary);
+    line-height: 1.1;
+    margin-bottom: 24px;
+  }
+
+  .cover-subtitle {
+    font-size: 13px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+  }
+
+  .cover-flow {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    margin-top: 12px;
+  }
+
+  .cover-flow-item {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-light);
+  }
+
+  .cover-flow-dot {
+    width: 3px; height: 3px;
+    border-radius: 50%;
+    background: var(--text-light);
+    opacity: 0.5;
+  }
+
+  .cover-start {
+    margin-top: 64px;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    text-decoration: none;
+    transition: gap 0.3s;
+  }
+  .cover-start:hover { gap: 18px; }
+  .cover-start-line {
+    width: 32px; height: 1px;
+    background: var(--accent);
+    transition: width 0.3s;
+  }
+  .cover-start:hover .cover-start-line { width: 48px; }
+
+  /* SECTIONS */
+  section {
+    min-height: 100vh;
+    padding: 120px 10vw 80px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .section-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-light);
+    margin-bottom: 8px;
+  }
+
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(28px, 4vw, 48px);
+    font-weight: 400;
+    line-height: 1.2;
+    margin-bottom: 8px;
+  }
+
+  .section-title em {
+    font-style: italic;
+    color: var(--text-secondary);
+  }
+
+  .section-instruction {
+    font-size: 13px;
+    color: var(--text-placeholder);
+    margin-bottom: 48px;
+    max-width: 640px;
+    line-height: 1.7;
+  }
+
+  /* BOOK GRID */
+  .book-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 2px;
+    margin-bottom: 32px;
+  }
+
+  .book-row { display: contents; }
+
+  .book-cell {
+    background: var(--bg-input);
+    aspect-ratio: 2/3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+    position: relative;
+    overflow: hidden;
+    border: 2px solid transparent;
+  }
+
+  .book-cell:hover {
+    background: var(--accent-light);
+    transform: translateY(-2px);
+  }
+
+  .book-cell.selected {
+    border-color: var(--accent);
+  }
+
+  .book-cell.selected::after {
+    content: attr(data-rank);
+    position: absolute;
+    top: 8px; right: 8px;
+    width: 20px; height: 20px;
+    background: var(--accent);
+    color: white;
+    border-radius: 50%;
+    font-size: 10px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .book-cell img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+  }
+
+  .book-placeholder {
+    font-size: 11px;
+    color: var(--text-placeholder);
+    text-align: center;
+    padding: 8px;
+    font-style: italic;
+  }
+
+  .book-label {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    background: rgba(242,239,233,0.92);
+    padding: 6px 8px;
+    font-size: 9px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    text-align: center;
+    transform: translateY(100%);
+    transition: transform 0.2s;
+  }
+
+  .book-cell:hover .book-label { transform: translateY(0); }
+
+  .book-section-label {
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-light);
+    margin-bottom: 8px;
+    margin-top: 24px;
+  }
+
+  /* TEXTAREA */
+  .field-label {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    margin-bottom: 10px;
+    margin-top: 32px;
+  }
+
+  textarea, input[type="text"] {
+    width: 100%;
+    background: var(--bg-input);
+    border: none;
+    border-bottom: 1px solid var(--border-input);
+    padding: 16px 0;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 300;
+    color: var(--text-primary);
+    resize: none;
+    outline: none;
+    transition: border-color 0.2s;
+    line-height: 1.7;
+  }
+
+  textarea { padding: 16px; min-height: 80px; }
+  input[type="text"] { border-bottom: 1px solid var(--border-input); background: transparent; }
+
+  textarea:focus, input[type="text"]:focus {
+    border-color: var(--accent);
+  }
+
+  textarea::placeholder, input::placeholder {
+    color: var(--text-placeholder);
+    font-style: italic;
+  }
+
+  /* THREE COLUMN LAYOUT */
+  .three-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0;
+    align-items: stretch;
+  }
+
+  .col-field {
+    padding: 0 32px 0 0;
+    border-right: 1px solid var(--border);
+  }
+
+  .col-field:last-child {
+    border-right: none;
+    padding: 0 0 0 32px;
+  }
+
+  .col-field:nth-child(2) {
+    padding: 0 32px;
+  }
+
+  .col-question {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin-bottom: 16px;
+  }
+
+  /* PERCENT LIST */
+  .percent-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    margin-bottom: 24px;
+  }
+
+  .percent-row {
+    display: grid;
+    grid-template-columns: 56px 1fr;
+    align-items: center;
+    gap: 16px;
+    padding: 12px 16px;
+    background: var(--bg-input);
+    transition: background 0.2s;
+  }
+
+  .percent-row:hover { background: var(--accent-light); }
+
+  .percent-input {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 300;
+    color: var(--accent);
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid var(--border-input);
+    width: 100%;
+    text-align: right;
+    outline: none;
+    padding: 4px 0;
+  }
+
+  .percent-input:focus { border-color: var(--accent); }
+
+  .percent-sign {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 14px;
+    color: var(--text-light);
+    margin-left: 2px;
+  }
+
+  .percent-input-wrap {
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+  }
+
+  .percent-label {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .percent-label strong {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-primary);
+  }
+
+  .percent-label em {
+    font-size: 11px;
+    font-style: italic;
+    color: var(--text-placeholder);
+  }
+
+  .percent-total {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    padding: 16px 16px;
+    border-top: 1px dashed var(--border);
+  }
+
+  .percent-total-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px;
+    font-weight: 300;
+    color: var(--text-primary);
+    transition: color 0.3s;
+  }
+
+  .percent-total-number.complete { color: var(--accent); }
+  .percent-total-number.over { color: #C0392B; }
+
+  .percent-total-label {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-light);
+  }
+
+  /* WARNING BOX */
+  .warning-box {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 20px 24px;
+    background: var(--bg-input);
+    margin-top: 32px;
+    border-left: 2px solid var(--accent);
+  }
+
+  .warning-icon { font-size: 16px; margin-top: 2px; }
+
+  .warning-text {
+    font-size: 12px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+
+  .warning-text strong {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 4px;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .warning-field {
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid var(--border-input);
+    padding: 8px 0;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--text-primary);
+    outline: none;
+    margin-top: 8px;
+  }
+
+  .warning-field::placeholder { color: var(--text-placeholder); }
+  .warning-field:focus { border-color: var(--accent); }
+
+  /* TWO COL */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+  }
+
+  .two-col .col-field:last-child {
+    padding: 0 0 0 48px;
+  }
+
+  .two-col .col-field:first-child {
+    padding: 0 48px 0 0;
+  }
+
+  /* IDENTITY SECTION */
+  .identity-note {
+    font-size: 12px;
+    color: var(--text-placeholder);
+    font-style: italic;
+    margin-top: 8px;
+    margin-bottom: 32px;
+  }
+
+  .diamond-prompt {
+    display: flex;
+    align-items: flex-start;
+    gap: 24px;
+    padding: 28px;
+    background: var(--bg-input);
+    margin-top: 40px;
+  }
+
+  .diamond-icon {
+    width: 48px; height: 48px;
+    flex-shrink: 0;
+    opacity: 0.6;
+  }
+
+  .diamond-question {
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin-bottom: 12px;
+  }
+
+  /* FOOTER */
+  .footer-nav {
+    padding: 48px 10vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--border);
+  }
+
+  .footer-meta {
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    color: var(--text-light);
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+  }
+
+  .btn-submit {
+    display: inline-flex;
+    align-items: center;
+    gap: 16px;
+    background: var(--text-primary);
+    color: var(--bg);
+    border: none;
+    padding: 16px 40px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.2s, gap 0.2s;
+  }
+
+  .btn-submit:hover {
+    background: var(--accent);
+    gap: 24px;
+  }
+
+  /* SUCCESS */
+  .success-screen {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: var(--bg);
+    z-index: 200;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .success-screen.visible { display: flex; }
+
+  .success-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 48px;
+    font-weight: 300;
+    margin-bottom: 16px;
+  }
+
+  .success-text {
+    font-size: 13px;
+    color: var(--text-placeholder);
+    letter-spacing: 0.05em;
+  }
+
+  /* PROGRESS */
+  .progress-bar {
+    position: fixed;
+    top: 0; left: 0;
+    height: 2px;
+    background: var(--accent);
+    transition: width 0.3s;
+    z-index: 101;
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  section { animation: fadeUp 0.6s ease both; }
+
+  @media (max-width: 900px) {
+    nav { padding: 14px 24px; }
+    .cover, section { padding: 100px 6vw 60px; }
+    .three-col { grid-template-columns: 1fr; gap: 32px; }
+    .col-field { padding: 0 !important; border-right: none; border-bottom: 1px solid var(--border); padding-bottom: 32px !important; }
+    .two-col { grid-template-columns: 1fr; gap: 32px; }
+    .book-grid { grid-template-columns: repeat(5, 1fr); }
+    .nav-steps { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="progressBar"></div>
+
+<nav>
+  <div class="nav-author" id="navAuthor">Authorname Surname</div>
+  <div class="nav-steps">
+    <a href="#s1" class="active">Inspiração</a>
+    <span>·</span>
+    <a href="#s2">Leitor</a>
+    <span>·</span>
+    <a href="#s3">Propósito</a>
+    <span>·</span>
+    <a href="#s4">Legado</a>
+    <span>·</span>
+    <a href="#s5">Identidade</a>
+  </div>
+</nav>
+
+<!-- COVER -->
+<div class="cover">
+  <div class="cover-subtitle">Autobiografia · Questionário</div>
+  <div class="cover-name" id="coverName">Authorname Surname</div>
+  <div class="cover-flow">
+    <span class="cover-flow-item">Inspiração</span><div class="cover-flow-dot"></div>
+    <span class="cover-flow-item">Leitor</span><div class="cover-flow-dot"></div>
+    <span class="cover-flow-item">Propósito</span><div class="cover-flow-dot"></div>
+    <span class="cover-flow-item">Legado</span><div class="cover-flow-dot"></div>
+    <span class="cover-flow-item">Identidade</span>
+  </div>
+  <a href="#s1" class="cover-start">
+    <div class="cover-start-line"></div>
+    Começar
+  </a>
+</div>
+
+<!-- SECTION 1: INSPIRAÇÃO -->
+<section id="s1">
+  <div class="section-number">I</div>
+  <div class="section-title">Inspiração. <em>Em uma livraria, ao lado de qual dessas biografias a sua estaria?</em></div>
+  <div class="section-instruction">Clique na região do título flutuante de cada imagem para detalhes. Aprecie com calma. Ao retornar, clique na região da imagem para escolher as 3 mais próximas, sendo 1 a mais próxima. <br>Ao final, descreva o que definiu a sua escolha.</div>
+
+  <div class="book-section-label">Internacionais</div>
+  <div class="book-grid" id="bookGridInt">
+    <div class="book-cell" data-book="de-princesa-a-rainha-da-moda" data-title="De Princesa a Rainha da Moda — Diane von Fürstenberg" onclick="selectBook(this)">
+      <img src="img/diane-von-furstenberg.jpg" alt="De Princesa a Rainha da Moda — Diane von Fürstenberg"></img>
+      <div class="book-label">
+ 	<a href="https://www.amazon.com.br/Princesa-%C3%A0-Rainha-Moda/dp/8555030412/" target="_blank" onclick="event.stopPropagation()" 
+     	style="color: var(--accent); text-decoration: none; font-size: 9px; letter-spacing: 0.05em;">De Princesa a Rainha da Moda</a>
+      </div>
+    </div>
+    <div class="book-cell" data-book="em-busca-de-mim" data-title="Em Busca de Mim — Viola Davis" onclick="selectBook(this)">
+      <img src="img/viola-davis.jpg" alt="Em Busca de Mim — Viola Davis"></img>
+      <div class="book-label">
+ 	<a href="https://favodomellone.com.br/em-busca-de-mim-livro-autobiografico-revelador-da-atriz-viola-davis/" target="_blank" onclick="event.stopPropagation()" 
+     	style="color: var(--accent); text-decoration: none; font-size: 9px; letter-spacing: 0.05em;">Em Busca de Mim</a>
+      </div>
+    </div>
+    <div class="book-cell" data-book="principios" data-title="Princípios — Ray Dalio" onclick="selectBook(this)">
+      <img src="img/ray-dalio.jpg" alt="Princípios — Ray Dalio"></img>
+      <div class="book-label">
+ 	<a href="https://luansperandio.com/ray-dalio/" target="_blank" onclick="event.stopPropagation()" 
+     	style="color: var(--accent); text-decoration: none; font-size: 9px; letter-spacing: 0.05em;">Princípios</a>
+      </div>
+    </div>
+    <div class="book-cell" data-book="owning-manhattan" data-title="Owning Manhattan — Ryan Serhant" onclick="selectBook(this)">
+      <img src="img/ryan-serhant.jpg" alt="Owning Manhattan — Ryan Serhant"></img>
+      <div class="book-label"><a href="https://www-netflix-com.translate.goog/tudum/articles/owning-manhattan-season-1-ryan-serhant-release-date-news?_x_tr_sl=en&_x_tr_tl=pt&_x_tr_hl=en&_x_tr_pto=wapp" target="_blank" onclick="event.stopPropagation()" 
+     	style="color: var(--accent); text-decoration: none; font-size: 9px; letter-spacing: 0.05em;">Owning Manhattan</a>
+      </div>
+    </div>
+    <div class="book-cell" data-book="shark-tales" data-title="Shark Tales — Barbara Corcoran" onclick="selectBook(this)">
+      <img src="img/barbara-corcoran.jpg" alt="Shark Tales — Barbara Corcoran"></img>
+      <div class="book-label"><a href="https://www-amazon-com-br.translate.goog/Shark-Tales-Turned-Billion-Business/dp/1591844185?_x_tr_sl=en&_x_tr_tl=pt&_x_tr_hl=en&_x_tr_pto=wapp" target="_blank" onclick="event.stopPropagation()" 
+     	style="color: var(--accent); text-decoration: none; font-size: 9px; letter-spacing: 0.05em;">Owning Manhattan</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="book-section-label">Nacionais+</div>
+  <div class="book-grid" id="bookGridNat">
+    <div class="book-cell" data-book="rachel" data-title="Meu Caminho até a Cadeira Número 1 — Rachel Maia" onclick="selectBook(this)">
+      <img src="img/rachel-maia.jpg" alt="Meu Caminho até a Cadeira Número 1 — Rachel Maia"></img>
+      <div class="book-label"><a href="https://www.fernandamschmid.com.br/post/meu-caminho-at%C3%A9-a-cadeira-n%C3%BAmero-1-rachel-maia/" target="_blank" onclick="event.stopPropagation()" 
+     	style="color: var(--accent); text-decoration: none; font-size: 9px; letter-spacing: 0.05em;">Cadeira #1</a>
+      </div>
+    </div>
+    <div class="book-cell" data-book="gisele" data-title="Aprendizados — Gisele Bündchen" onclick="selectBook(this)">
+      <img src="img/gisele-buendchen.jpg" alt="Aprendizados — Gisele Bündchen"></img>
+      <div class="book-label"><a href="https://fluffy.com.br/gisele-bundchen-aprendizados/?srsltid=AfmBOoqlZK1chko44pXOgvkpRcntubwYzlkU-TAa84FGZEDcwmXW-mbs" target="_blank" onclick="event.stopPropagation()" 
+     	style="color: var(--accent); text-decoration: none; font-size: 9px; letter-spacing: 0.05em;">Aprendizados</a>
+      </div>
+    </div>
+    <div class="book-cell" data-book="elegancia-do-agora" data-title="A Elegância do Agora — Constanza Pascolato" onclick="selectBook(this)">
+      <img src="img/constanza-pascolato.jpg" alt="A Elegância do Agora — Constanza Pascolato"></img>
+      <div class="book-label"><a href="https://www.amazon.com.br/eleg%C3%A2ncia-do-agora-Costanza-Pascolato/dp/8584190996/" target="_blank" onclick="event.stopPropagation()" 
+     	style="color: var(--accent); text-decoration: none; font-size: 9px; letter-spacing: 0.05em;">A Elegância do Agora</a>
+      </div>
+    </div>
+    <div class="book-cell" data-book="girlboss" data-title="#Girlboss — Sophia Amoruso" onclick="selectBook(this)">
+      <img src="img/sophia-amoruso.jpg" alt="#Girlboss — Sophia Amoruso"></img>
+      <div class="book-label"><a href="https://drive.google.com/file/d/19OALpWbww7kjO5-LJKCY72gKD0WZUPz8/view?usp=drive_link" target="_blank" onclick="event.stopPropagation()" 
+     	style="color: var(--accent); text-decoration: none; font-size: 9px; letter-spacing: 0.05em;">#Girlboss</a>
+      </div>
+    </div>
+    <div class="book-cell" data-book="estrelas-fritas" data-title="Estrelas Fritas com Açúcar — Letícia Wierzchowski" onclick="selectBook(this)">
+      <img src="img/dudalina.jpg" alt="Estrelas Fritas com Açúcar — Letícia Wierzchowski"></img>
+      <div class="book-label"><a href="https://www.vidaenegocio.com.br/uma-historia-costurada-pelas-maos-de-uma-mulher-visionaria/" target="_blank" onclick="event.stopPropagation()" 
+     	style="color: var(--accent); text-decoration: none; font-size: 9px; letter-spacing: 0.05em;">Dudalina</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="field-label">Escolhi essas 3 porque…</div>
+  <textarea id="insp_reason" placeholder="Descreva o que essas obras têm em comum com o que você imagina para o seu livro…" rows="3"></textarea>
+</section>
+
+<!-- SECTION 2: LEITOR -->
+<section id="s2">
+  <div class="section-number">II</div>
+  <div class="section-title">Leitor. <em>Descreva a pessoa que adquire o seu livro numa livraria, sem te conhecer.</em></div>
+  <div class="section-instruction">Pense em alguém real. Quanto mais específico, mais útil para o livro.</div>
+
+  <div class="three-col">
+    <div class="col-field">
+      <div class="col-question">Como é essa pessoa?<br>Qual a rotina dela? Quais as suas prioridades e objetivos?</div>
+      <textarea id="reader_who" placeholder="O meu leitor…" rows="8"></textarea>
+    </div>
+    <div class="col-field">
+      <div class="col-question">Quais conhecimentos e habilidades essa pessoa busca no seu livro?</div>
+      <textarea id="reader_seeks" placeholder="O meu leitor…" rows="9"></textarea>
+    </div>
+    <div class="col-field">
+      <div class="col-question">Onde o leitor está durante a leitura?<br><br>Em um lounge executivo esperando um voo internacional ou em um intervalo rápido entre tarefas domésticas?</div>
+      <textarea id="reader_where" placeholder="O meu leitor…" rows="6"></textarea>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 3: PROPÓSITO -->
+<section id="s3">
+  <div class="section-number">III</div>
+  <div class="section-title">Propósito. <em>O que este livro precisa gerar como resultado principal para você?</em></div>
+  <div class="section-instruction">Preencha os percentuais abaixo e ajuste os valores até que a soma corresponda a 100%.</div>
+
+  <div class="percent-list">
+    <div class="percent-row">
+      <div class="percent-input-wrap">
+        <input type="number" class="percent-input" min="0" max="100" value="" placeholder="0" oninput="updateTotal('prop')">
+        <span class="percent-sign">%</span>
+      </div>
+      <div class="percent-label">
+        <strong>Posicionamento profissional</strong>
+        <em>credibilidade, autoridade, novas oportunidades</em>
+      </div>
+    </div>
+    <div class="percent-row">
+      <div class="percent-input-wrap">
+        <input type="number" class="percent-input" min="0" max="100" value="" placeholder="0" oninput="updateTotal('prop')">
+        <span class="percent-sign">%</span>
+      </div>
+      <div class="percent-label">
+        <strong>Consolidação de imagem pública</strong>
+        <em>status, reconhecimento social</em>
+      </div>
+    </div>
+    <div class="percent-row">
+      <div class="percent-input-wrap">
+        <input type="number" class="percent-input" min="0" max="100" value="" placeholder="0" oninput="updateTotal('prop')">
+        <span class="percent-sign">%</span>
+      </div>
+      <div class="percent-label">
+        <strong>Transformação de leitores</strong>
+        <em>mentoria, levar conhecimento</em>
+      </div>
+    </div>
+    <div class="percent-row">
+      <div class="percent-input-wrap">
+        <input type="number" class="percent-input" min="0" max="100" value="" placeholder="0" oninput="updateTotal('prop')">
+        <span class="percent-sign">%</span>
+      </div>
+      <div class="percent-label">
+        <strong>Crescimento comercial</strong>
+        <em>vendas, clientes, negócios</em>
+      </div>
+    </div>
+    <div class="percent-row">
+      <div class="percent-input-wrap">
+        <input type="number" class="percent-input" min="0" max="100" value="" placeholder="0" oninput="updateTotal('prop')">
+        <span class="percent-sign">%</span>
+      </div>
+      <div class="percent-label">
+        <strong>Catarse pessoal</strong>
+        <em>expressar emoções e experiências</em>
+      </div>
+    </div>
+    <div class="percent-row">
+      <div class="percent-input-wrap">
+        <input type="number" class="percent-input" min="0" max="100" value="" placeholder="0" oninput="updateTotal('prop')">
+        <span class="percent-sign">%</span>
+      </div>
+      <div class="percent-label">
+        <strong>Legado familiar</strong>
+        <em>filhos, netos, memória</em>
+      </div>
+    </div>
+    <div class="percent-row">
+      <div class="percent-input-wrap">
+        <input type="number" class="percent-input" min="0" max="100" value="" placeholder="0" oninput="updateTotal('prop')">
+        <span class="percent-sign">%</span>
+      </div>
+      <div class="percent-label">
+        <strong>Outro</strong>
+        <input type="text" placeholder="descreva aqui…"
+        style="background: transparent; border: none; border-bottom: 0px solid var(--border-input);
+        font-family: 'DM Sans', sans-serif; font-size: 11px; font-style: italic;
+        color: var(--text-primary); outline: none; padding: 2px 0; margin-top: 4px; width: 100%;">
+      </div>
+    </div>
+  </div>
+
+  <div class="percent-total">
+    <span class="percent-total-number" id="propTotal">0</span>
+    <span class="percent-sign" style="font-size:18px; color: var(--text-light);">%</span>
+    <span class="percent-total-label">de 100%</span>
+  </div>
+
+  <div class="warning-box">
+    <div class="warning-icon">⚠</div>
+    <div class="warning-text">
+      <strong>Importante</strong>
+      Este livro NÃO é sobre…
+      <input type="text" class="warning-field" id="prop_not" placeholder="sua resposta aqui">
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 4: LEGADO -->
+<section id="s4">
+  <div class="section-number">IV</div>
+  <div class="section-title">Legado. <em>O que este livro precisa gerar como resultado principal&nbsp;para o leitor?</em></div>
+  <div class="section-instruction">Pense além da sua história. O que fica quando o leitor fecha o livro?</div>
+
+  <div class="two-col">
+    <div class="col-field">
+      <div class="col-question">Se retirarmos todos os nomes e detalhes pessoais, o que permanece de memória para o leitor?</div>
+      <textarea id="legacy_strip" placeholder="O legado para o leitor…" rows="8"></textarea>
+    </div>
+    <div class="col-field">
+      <div class="col-question">Tomando o livro como mentoria, quais as 3 lições práticas que o leitor poderia aplicar de imediato?</div>
+      <textarea id="legacy_lessons" placeholder="O legado para o leitor…" rows="8"></textarea>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 5: IDENTIDADE -->
+<section id="s5">
+  <div class="section-number">V</div>
+  <div class="section-title">Identidade. <em>Como o leitor descreve <span style="font-style:italic; font-family: Cormorant Garamond, serif;" id="identityName">Authorname Surname</span> após a leitura?</em></div>
+  <div class="section-instruction">Escolha pelo menos 1 com mínimo de 50%. A maior porcentagem será o critério principal de edição.</div>
+  <div class="identity-note">Preencha os percentuais abaixo e ajuste até 100%.</div>
+
+  <div class="percent-list">
+    <div class="percent-row">
+      <div class="percent-input-wrap">
+        <input type="number" class="percent-input" min="0" max="100" value="" placeholder="0" oninput="updateTotal('ident')">
+        <span class="percent-sign">%</span>
+      </div>
+      <div class="percent-label">
+        <strong>Executiva de sucesso</strong>
+        <em>Foco: Resultados alcançados, carreira em imóveis</em>
+      </div>
+    </div>
+    <div class="percent-row">
+      <div class="percent-input-wrap">
+        <input type="number" class="percent-input" min="0" max="100" value="" placeholder="0" oninput="updateTotal('ident')">
+        <span class="percent-sign">%</span>
+      </div>
+      <div class="percent-label">
+        <strong>Figura social / Glamour</strong>
+        <em>Foco: Elegância, estilo de vida</em>
+      </div>
+    </div>
+    <div class="percent-row">
+      <div class="percent-input-wrap">
+        <input type="number" class="percent-input" min="0" max="100" value="" placeholder="0" oninput="updateTotal('ident')">
+        <span class="percent-sign">%</span>
+      </div>
+      <div class="percent-label">
+        <strong>História de superação</strong>
+        <em>Foco: Dificuldades e desafios</em>
+      </div>
+    </div>
+  </div>
+
+  <div class="percent-total">
+    <span class="percent-total-number" id="identTotal">0</span>
+    <span class="percent-sign" style="font-size:18px; color: var(--text-light);">%</span>
+    <span class="percent-total-label">de 100%</span>
+  </div>
+
+  <div class="diamond-prompt">
+    <svg class="diamond-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+      <path d="M6 3h12l4 6-10 13L2 9z"/>
+    </svg>
+    <div style="flex:1">
+      <div class="diamond-question">Ao reler este livro em 10 anos, quais as duas palavras mais importantes que gostaria de pensar?</div>
+      <input type="text" id="identity_words" placeholder="Daqui a 10 anos…">
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<div class="footer-nav">
+  <div class="footer-meta" id="footerMeta">Authorname Surname — Autobiografia · 2026</div>
+  <button class="btn-submit" onclick="submitForm()">
+    Enviar respostas
+    <span style="font-size:16px;">→</span>
+  </button>
+</div>
+
+<!-- SUCCESS -->
+<div class="success-screen" id="successScreen">
+  <div class="cover-subtitle" style="margin-bottom: 16px;">Respostas recebidas</div>
+  <div class="success-name" id="successName">Authorname Surname</div>
+  <div class="success-text">Obrigado. As suas respostas foram registadas.</div>
+</div>
+
+<script>
+  // ─── CONFIG ───────────────────────────────────────────────
+  const AUTHOR_NAME = "Valéria Lavínia";
+  const APPS_SCRIPT_URL = "YOUR_APPS_SCRIPT_WEB_APP_URL_HERE";
+  // ──────────────────────────────────────────────────────────
+
+  // Set author name throughout
+  document.getElementById('coverName').textContent = AUTHOR_NAME;
+  document.getElementById('navAuthor').textContent = AUTHOR_NAME;
+  document.getElementById('identityName').textContent = AUTHOR_NAME;
+  document.getElementById('footerMeta').textContent = `${AUTHOR_NAME} — Autobiografia · 2026 \xa0©\xa0 Nabi Editora e Plataforma`;
+  document.getElementById('successName').textContent = AUTHOR_NAME;
+
+  // Progress bar
+  window.addEventListener('scroll', () => {
+    const h = document.documentElement;
+    const pct = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100;
+    document.getElementById('progressBar').style.width = pct + '%';
+  });
+
+  // Active nav
+  const sections = document.querySelectorAll('section');
+  const navLinks = document.querySelectorAll('.nav-steps a');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        navLinks.forEach(l => l.classList.remove('active'));
+        const id = e.target.id;
+        const map = { s1:'#s1', s2:'#s2', s3:'#s3', s4:'#s4', s5:'#s5' };
+        const link = document.querySelector(`.nav-steps a[href="${map[id]}"]`);
+        if (link) link.classList.add('active');
+      }
+    });
+  }, { threshold: 0.3 });
+  sections.forEach(s => observer.observe(s));
+
+  // Book selection (max 3, ranked)
+  let selectedBooks = [];
+  function selectBook(el) {
+    const book = el.dataset.book;
+    const idx = selectedBooks.indexOf(book);
+    if (idx > -1) {
+      selectedBooks.splice(idx, 1);
+      el.classList.remove('selected');
+      el.removeAttribute('data-rank');
+      updateRanks();
+    } else {
+      if (selectedBooks.length >= 3) {
+        const first = selectedBooks[0];
+        const firstEl = document.querySelector(`[data-book="${first}"]`);
+        firstEl.classList.remove('selected');
+        firstEl.removeAttribute('data-rank');
+        selectedBooks.shift();
+      }
+      selectedBooks.push(book);
+      el.classList.add('selected');
+      updateRanks();
+    }
+  }
+
+  function updateRanks() {
+    selectedBooks.forEach((book, i) => {
+      const el = document.querySelector(`[data-book="${book}"]`);
+      el.dataset.rank = i + 1;
+    });
+  }
+
+  // Percent totals
+  function updateTotal(group) {
+    const sections = { prop: '#s3', ident: '#s5' };
+    const inputs = document.querySelectorAll(`${sections[group]} .percent-input`);
+    let total = 0;
+    inputs.forEach(i => { total += parseInt(i.value) || 0; });
+    const el = document.getElementById(group === 'prop' ? 'propTotal' : 'identTotal');
+    el.textContent = total;
+    el.classList.remove('complete', 'over');
+    if (total === 100) el.classList.add('complete');
+    else if (total > 100) el.classList.add('over');
+  }
+
+  // Submit
+  async function submitForm() {
+    const propInputs = document.querySelectorAll('#s3 .percent-input');
+    const identInputs = document.querySelectorAll('#s5 .percent-input');
+
+    const data = {
+      author: AUTHOR_NAME,
+      timestamp: new Date().toISOString(),
+      inspiracao_livros: selectedBooks.join(', '),
+      inspiracao_razao: document.getElementById('insp_reason').value,
+      leitor_quem: document.getElementById('reader_who').value,
+      leitor_busca: document.getElementById('reader_seeks').value,
+      leitor_onde: document.getElementById('reader_where').value,
+      proposito_profissional: propInputs[0].value,
+      proposito_imagem: propInputs[1].value,
+      proposito_transformacao: propInputs[2].value,
+      proposito_comercial: propInputs[3].value,
+      proposito_catarse: propInputs[4].value,
+      proposito_legado: propInputs[5].value,
+      proposito_outro: propInputs[6].value,
+      proposito_nao_sobre: document.getElementById('prop_not').value,
+      legado_essencia: document.getElementById('legacy_strip').value,
+      legado_licoes: document.getElementById('legacy_lessons').value,
+      identidade_executiva: identInputs[0].value,
+      identidade_glamour: identInputs[1].value,
+      identidade_superacao: identInputs[2].value,
+      identidade_palavras: document.getElementById('identity_words').value,
+    };
+
+    if (APPS_SCRIPT_URL === "YOUR_APPS_SCRIPT_WEB_APP_URL_HERE") {
+      console.log("Form data:", data);
+      document.getElementById('successScreen').classList.add('visible');
+      return;
+    }
+
+    try {
+      await fetch(APPS_SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+      document.getElementById('successScreen').classList.add('visible');
+    } catch (e) {
+      alert('Erro ao enviar. Por favor, tente novamente.');
+    }
+  }
+</script>
+</body>
+</html>
