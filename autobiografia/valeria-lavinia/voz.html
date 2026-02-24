@@ -913,6 +913,10 @@
     <span class="percent-total-label">de 100%</span>
   </div>
 
+  <div class="field-label">A frase que define este livro</div>
+    <input type="text" id="identity_phrase" 
+      placeholder="Em uma frase, este livro é…">
+
   <div class="diamond-prompt">
     <svg class="diamond-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
       <path d="M6 3h12l4 6-10 13L2 9z"/>
@@ -1051,6 +1055,7 @@
       identidade_executiva: identInputs[0].value,
       identidade_glamour: identInputs[1].value,
       identidade_superacao: identInputs[2].value,
+      identidade_frase: document.getElementById('identity_phrase').value,
       identidade_palavras: document.getElementById('identity_words').value,
     };
 
