@@ -935,23 +935,15 @@
 
 <!-- SUCCESS -->
 <div class="success-screen" id="successScreen">
-  <div class="cover-subtitle" style="margin-bottom: 16px;">
-    Voz registrada
-  </div>
+  <div class="cover-subtitle" style="margin-bottom: 16px;">Respostas recebidas</div>
   <div class="success-name" id="successName">Authorname Surname</div>
-  <div class="success-text">
-    Obrigado. Sua voz — seu poder —  
-    <a id="successLink" href="#" target="_blank" 
-       style="color: var(--accent); display:none;">
-      dará vida ao seu livro.
-    </a>
-  </div>
+  <div class="success-text">Obrigado. As suas respostas foram registadas.</div>
 </div>
 
 <script>
   // ─── CONFIG ───────────────────────────────────────────────
   const AUTHOR_NAME = "Valéria Lavínia";
-  const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzyXo2Ymc-Sq5EB2S1LfqLufC134Vy2eoGkuvcrxvceRGQS0_jSFCE7SSKb3TEAvRtC/exec";
+  const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx5JDUjPjJb9QvbaUu4ZcSwh4MvvZg6b4snD49KVWxTykNM7Cb5B4KngYu7bbsk8d8l/exec";
   // ──────────────────────────────────────────────────────────
 
   // Set author name throughout
@@ -1058,21 +1050,20 @@
       identidade_palavras: document.getElementById('identity_words').value,
     };
 
-    const response = await fetch(APPS_SCRIPT_URL, {
-      method: 'POST',
-      mode: 'cors',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data)
-    });
-
-    const result = await response.json();
-
-    // Inject link into success screen
-    if (result.docUrl) {
-    document.getElementById('successLink').href = result.docUrl;
-    document.getElementById('successLink').style.display = 'inline';
+    if (APPS_SCRIPT_URL === "YOUR_APPS_SCRIPT_WEB_APP_URL_HERE") {
+      console.log("Form data:", data);
+      document.getElementById('successScreen').classList.add('visible');
+      return;
     }
-    document.getElementById('successScreen').classList.add('visible');
+
+    try {
+      await fetch(APPS_SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+      document.getElementById('successScreen').classList.add('visible');
     } catch (e) {
       alert('Erro ao enviar. Por favor, tente novamente.');
     }
